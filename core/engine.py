@@ -7,8 +7,11 @@ class Engine:
         self._command_factory = factory
 
     def start(self):
+
         output = []
+        
         print('available operations')
+
         while True:
             try:
                 input_line = input()

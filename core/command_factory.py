@@ -9,6 +9,9 @@
 # from commands.show_category import ShowCategoryCommand
 # from commands.total_price import TotalPriceCommand
 from core.models_factory import ModelsFactory
+from commands.create_package import CreatePackage
+from commands.find_suitable_route import FindSuitableRoute
+
 
 class CommandFactory:
     def __init__(self, data):
@@ -18,9 +21,12 @@ class CommandFactory:
     def create(self, input_line):
         cmd, *params = input_line.split()
 
-        if cmd.lower() == "createcategory":
-            pass
-            # return CreateCategoryCommand(params, self._app_data,self._models_factory))
+        if cmd.lower() == "createpackage":
+            return CreatePackage(params, self._app_data,self._models_factory)
+        
+        if cmd.lower() == "findsuitableroute":
+            return FindSuitableRoute(params, self._app_data)
+        
 
 
         # if cmd.lower() == "createcream": # CREAM

@@ -1,4 +1,5 @@
 from datetime import datetime
+from models.constants.status import Status
 
 class Package:
     def __init__(self, package_id, start_location, end_location, weight, user):
@@ -15,11 +16,12 @@ class Package:
 
     @property
     def status(self):
+        
         if self.package_eta is None: 
-            return 'unassigned'
+            return Status.UNASSIGNED
         if self.package_eta>datetime.now():
-            return 'assigned'
-        return 'delivered'
+            return Status.ASSIGNED
+        return Status.DELIVERED
 
     @property
     def weight(self):
@@ -31,16 +33,23 @@ class Package:
     
     @package_eta.setter
     def package_eta(self, value):
-        if self.status=='unassigned':
+        if self.status==Status.UNASSIGNED:
             self._package_eta=value
         else:
             raise ValueError(f'ETA for package with ID {self.package_id} has already been set.')
+        
+    @property
+    def start_location(self):
+        return self._start_location
+    @property
+    def end_location(self):
+        return self._end_location
 
     @property
     def info(self):
-        if self.status=='unassigned':
+        if self.status==Status.UNASSIGNED:
             return f"Package with ID {self.package_id} hasn't been dispatched yet! | Location - {self._start_location}"
-        if self.status=='assigned':
+        if self.status==Status.ASSIGNED:
             return f"Package with ID {self.package_id} is on its way to {self._end_location}! | ETA - {self.package_eta}"
         
         return f'Package with ID {self.package_id} has been delivered to {self._end_location} on date_stamp?!?!?! '

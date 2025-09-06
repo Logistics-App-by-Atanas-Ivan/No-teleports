@@ -13,7 +13,7 @@ class BaseCommand(ValidationHelpers):
         return tuple(self._params)
 
     @property
-    def app_data(self):
+    def app_data(self)->ApplicationData:
         return self.app_data
 
     def execute(self):

@@ -1,4 +1,5 @@
 from models.package import Package
+
 # from models.test_group import TestGroup
 
 
@@ -8,7 +9,7 @@ class ModelsFactory:
         self._package_id = 1
 
     def create_package(self, start_location, end_location, weight, user):
-        package_id = self._pack_id
+        package_id = self._package_id
         self._package_id += 1
         return Package(package_id, start_location, end_location, weight, user)
 
