@@ -7,6 +7,7 @@ class ModelsFactory:
     def __init__(self):
         self._route_id = 1
         self._package_id = 1
+        self._trucks = self._create_truck()
 
     def create_package(self, start_location, end_location, weight, user):
         package_id = self._package_id
@@ -17,6 +18,9 @@ class ModelsFactory:
         pass 
 
     def create_user(self, email):
+        pass
+
+    def create_truck(self):
         pass
 
     # def create_group(self, name: str):

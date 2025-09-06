@@ -1,10 +1,12 @@
 from datetime import datetime
+from models.package import Package
 
 class Route:
     def __init__(self,*args):
         self._locations=[]
         self._departure_time= None
         self._assigned_truck = None
+        self._assigned_packages = []
 
     @property
     def locations(self):
@@ -42,3 +44,20 @@ class Route:
     @property
     def info(self):
         pass
+
+    def free_capacity_at_location(self, package : Package):
+        loaded_weight = 0
+
+        for location in self._locations:            
+            for assigned_package in self._assigned_packages:
+                if assigned_package.start_location == location:
+                    loaded_weight += assigned_package.weight
+                if assigned_package.end_location == location:
+                    loaded_weight -= assigned_package.weight
+            if location == package.start_location:
+                break
+        if loaded_weight + package.weight <= self._assigned_truck.capacity:
+            return True
+        
+    def assign_package(self, package: Package):
+        self._assigned_packages.append(package)
