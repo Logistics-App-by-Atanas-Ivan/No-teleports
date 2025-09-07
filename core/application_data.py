@@ -17,6 +17,19 @@ class ApplicationData:
         self._users = []
         self._trucks = ModelsFactory.create_truck()
 
+    @property
+    def routes(self):
+        return tuple(self._routes)
+    @property
+    def packages(self):
+        return tuple(self._packages)
+    @property
+    def users(self):
+        return tuple(self._users)
+    @property
+    def trucks(self):
+        return tuple(self._trucks)
+
     
     def user_exists(self, email):
         pass
@@ -59,3 +72,6 @@ class ApplicationData:
             available_routes.append(route)
         
         return available_routes
+    
+    def find_truck(self):
+        pass
