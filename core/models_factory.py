@@ -14,10 +14,10 @@ class ModelsFactory:
         self._package_id += 1
         return Package(package_id, start_location, end_location, weight, user)
 
-    def create_route(self,*locations)->Route:
+    def create_route(self,locations)->Route:
         route_id = self._route_id
         self._route_id+=1
-        return Route(route_id, *locations)
+        return Route(route_id, locations)
 
     def create_user(self, email):
         pass

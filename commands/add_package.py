@@ -26,7 +26,7 @@ class AddPackage(BaseCommand):
         
         for existing_route in routes:
             if existing_route.id == route_id:
-                existing_route.assign_package(package)
+                self.app_data.assign_package(package,existing_route)
                 break
             return f'Package with ID {package_id} cannot be sent via route {route_id}!'
 

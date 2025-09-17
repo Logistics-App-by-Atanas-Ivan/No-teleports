@@ -8,6 +8,7 @@ from datetime import datetime
 from models.route import Route
 from models.truck import Truck
 from core.models_factory import ModelsFactory
+from models.city_distances import CityDistances
 
 
 class ApplicationData:
@@ -16,6 +17,7 @@ class ApplicationData:
         self._packages: list[Package] =[]
         self._users = []
         self._trucks = ModelsFactory.create_truck()
+        self._city_distances: CityDistances = CityDistances()
 
     @property
     def routes(self):
@@ -75,3 +77,19 @@ class ApplicationData:
     
     def find_truck(self):
         pass
+
+
+    def assign_package(self, package: Package, route: Route):
+        #   def calculate_distance(self, start_location, end_location, route):
+
+        distance = self._city_distances.calculate_distance(package.end_location, route)
+        travel_time = distance / 87
+
+
+
+        
+
+        route.assign_package(package)
+
+
+        
