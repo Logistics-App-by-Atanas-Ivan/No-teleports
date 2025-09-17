@@ -38,6 +38,8 @@ class Route:
     def assigned_truck(self, truck: Truck):
         if self.assigned_truck is None:
             self._assigned_truck=truck
+            self.departure_time = truck.available_from  #Open 1: Set this to be the next day. 
+                                                        #Open 2: Should this be departure_date / departure_time / departure_date_and_time ?
         else:
             raise ValueError(f'A truck for this route has already been assigned.')
 

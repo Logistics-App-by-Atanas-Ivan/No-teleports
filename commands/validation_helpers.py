@@ -9,13 +9,13 @@ class ValidationHelpers:
         try:
             return float(s)
         except:
-            raise ValueError('Invalid value for kg. Should be a number.')
+            raise ValueError('Invalid value. Should be a number.') #Check if the message can be improved & includes the variable name 'Invalid value for {variable_name}. Should be a number.'
 
     def try_parse_int(s):
         try:
             return int(s)
         except:
-            raise ValueError('Invalid value for mililitres. Should be an integer.')
+            raise ValueError('Invalid value for mililitres. Should be an integer.') #Check if the message can be improved & includes the variable name 'Invalid value for {variable_name}. Should be an integer.'
         
     def location_exists(location, start =True):
         #use another class to check later? or move it to app data

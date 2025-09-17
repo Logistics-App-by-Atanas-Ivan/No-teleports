@@ -1,22 +1,18 @@
-# from models.category import Category
-# from models.product import Product
-# from models.shampoo import Shampoo
-# from models.shopping_cart import ShoppingCart
-# from models.toothpaste import Toothpaste
 from models.package import Package
 from datetime import datetime
 from models.route import Route
 from models.truck import Truck
 from core.models_factory import ModelsFactory
 from models.city_distances import CityDistances
+from models.user import User
 
 
 class ApplicationData:
     def __init__(self):
         self._routes: list[Route] = []
         self._packages: list[Package] =[]
-        self._users = []
-        self._trucks = ModelsFactory.create_truck()
+        self._users: list[User] = []
+        self._trucks: list[Truck] = ModelsFactory.create_truck()
         self._city_distances: CityDistances = CityDistances()
 
     @property
@@ -33,8 +29,10 @@ class ApplicationData:
         return tuple(self._trucks)
 
     
-    def user_exists(self, email):
-        pass
+    def find_user(self, email) -> User:
+        for user in self._users:
+            if user.email == email:
+                return user
 
     def add_package(self, package):
         self._packages.append(package)
@@ -75,9 +73,15 @@ class ApplicationData:
         
         return available_routes
     
-    def find_truck(self):
-        pass
+    def find_truck(self, truck_id: int) -> Truck:
+        for truck in self._trucks:
+            if truck.truck_id == truck_id:
+                return truck
 
+    def find_route(self, route_id: int) -> Route:
+        for route in self.routes:
+            if route.route_id == route_id:
+                return route
 
     def assign_package(self, package: Package, route: Route):
         #   def calculate_distance(self, start_location, end_location, route):

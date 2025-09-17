@@ -14,8 +14,8 @@ class CreateRoute(BaseCommand):
         route_locations = self.params[0]
         for location in route_locations:
             self.location_exists(location)
-
-        route = self
+            
+        pass
         
         # start_location, end_location, weight, email = self.params
         # start_location = self.location_exists(start_location)

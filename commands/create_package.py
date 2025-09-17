@@ -17,7 +17,9 @@ class CreatePackage(BaseCommand):
         start_location = self.location_exists(start_location)
         end_location = self.location_exists(end_location, False)
         weight = self.try_parse_float(weight)
-        user = self.app_data.user_exists(email) # implement later
+        user = self.app_data.find_user(email)
+        if not user:
+            raise ValueError(f'User with email {email} not found!')
         
         package = self._models_factory.create_package(start_location, end_location, weight, user)
 
