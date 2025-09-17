@@ -52,7 +52,7 @@ class Package:
         if self.status==Status.ASSIGNED:
             return f"Package with ID {self.package_id} is on its way to {self._end_location}! | ETA - {self.package_eta}"
         
-        return f'Package with ID {self.package_id} has been delivered to {self._end_location} on date_stamp?!?!?! '
+        return f'Package with ID {self.package_id} has been delivered to {self._end_location} on {self.package_eta}'
 
 
 

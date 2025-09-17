@@ -25,5 +25,5 @@ class ValidationHelpers:
                 raise ValueError('Please enter a valid start location.')
             else:
                 raise ValueError('Please enter a valid end location.')
-        return location.title() 
+        return location.title()
 
