@@ -1,5 +1,5 @@
 from models.package import Package
-from datetime import datetime
+from datetime import datetime, timedelta, time
 from models.route import Route
 from models.truck import Truck
 from core.models_factory import ModelsFactory
@@ -54,7 +54,8 @@ class ApplicationData:
             if start_location not in route.locations:
                 continue
 
-            if route.location_eta(start_location)<datetime.now():
+            if self.location_eta(route, start_location)<datetime.now():
+            # route.location_eta(start_location)<datetime.now():
                 continue
 
             if end_location not in route.locations:
@@ -73,10 +74,17 @@ class ApplicationData:
         
         return available_routes
     
-    def find_truck(self, truck_id: int) -> Truck:
+    def find_truck(self, route: Route) -> Truck:
+        route_total_distance = self._city_distances.calculate_distance(route.locations[-1], route)
+
+        suitable_truck = None
         for truck in self._trucks:
-            if truck.truck_id == truck_id:
-                return truck
+            if truck.truck_range >= route_total_distance:
+                if truck.available_from <= datetime.combine(datetime.today().date() + timedelta(days=1), time(hour=6)):
+                    return truck
+                elif not suitable_truck or truck.available_from < suitable_truck.available_from:
+                    suitable_truck = truck
+        return suitable_truck
 
     def find_route(self, route_id: int) -> Route:
         for route in self.routes:
@@ -84,16 +92,28 @@ class ApplicationData:
                 return route
 
     def assign_package(self, package: Package, route: Route):
-        #   def calculate_distance(self, start_location, end_location, route):
-
-        distance = self._city_distances.calculate_distance(package.end_location, route)
-        travel_time = distance / 87
-
-
-
-        
-
+        package.package_eta = self.eta_calculation(package.end_location, route)        
         route.assign_package(package)
 
 
-        
+    def assign_truck(self, route: Route, truck: Truck):
+        route.assigned_truck = truck
+        route_final_location = route.locations[-1]
+        # final_location_eta = route.location_eta(route_final_location)
+        final_location_eta = self.location_eta(route, route_final_location)
+        truck.available_from = final_location_eta
+        if truck.available_from <= datetime.combine(datetime.today().date() + timedelta(days=1), time(hour=6)): 
+            route.departure_time = datetime.combine(datetime.today().date() + timedelta(days=1), time(hour=6))
+        else:
+            route.departure_time = datetime.combine(truck.available_from.date() + timedelta(days=1), time(hour=6))
+
+    def location_eta(self, route: Route, location)->datetime:
+        if location == route.locations[0]:
+            return route.departure_time
+        location_eta = self.eta_calculation(location, route)
+        return location_eta
+
+    def eta_calculation(self, location, route: Route) -> datetime:
+        distance = self._city_distances.calculate_distance(location, route)
+        travel_time_in_minutes = timedelta(minutes=(distance / 87) * 60)
+        return route.departure_time + travel_time_in_minutes

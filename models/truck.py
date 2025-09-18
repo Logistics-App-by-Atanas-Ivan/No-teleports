@@ -26,7 +26,7 @@ class Truck:
         return self._truck_range
     
     @property
-    def available_from(self):
+    def available_from(self) -> datetime:
         return self._avaialble_from
     
     @available_from.setter

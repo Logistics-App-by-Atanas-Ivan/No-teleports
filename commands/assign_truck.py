@@ -23,9 +23,6 @@ class AssignTruck(BaseCommand):
         if not route:
             raise ValueError(f'Route with ID {route_id} was not found!')
         
-        route.assigned_truck = truck
-        route_final_location = route.locations[-1:]
-        final_location_eta = route.location_eta(route_final_location)
-        truck.available_from = final_location_eta           #Open: make sure that both values have the same type -> date / date & time
+        self.app_data.assign_truck(route, truck)
 
         return f'Truck with ID {truck_id} was assigned to Route with ID {route_id}!'

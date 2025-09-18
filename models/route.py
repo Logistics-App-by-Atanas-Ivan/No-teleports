@@ -1,6 +1,7 @@
 from datetime import datetime
 from models.package import Package
 from models.truck import Truck
+from models.city_distances import CityDistances
 
 class Route:
     def __init__(self,id, locations):
@@ -44,10 +45,10 @@ class Route:
             raise ValueError(f'A truck for this route has already been assigned.')
 
 
-    def location_eta(self, location)->datetime:
-        if location == self._locations[0]:
-            return self.departure_time
-        pass # calculates ETA for a given location 
+    # def location_eta(self, location)->datetime:
+    #     if location == self._locations[0]:
+    #         return self.departure_time
+    #     pass # calculates ETA for a given location 
     
 
     @property
