@@ -4,9 +4,9 @@ from models.truck import Truck
 from models.city_distances import CityDistances
 
 class Route:
-    def __init__(self,id, locations):
+    def __init__(self, id, locations):
         self._route_id = id
-        self._locations= ','.split(locations) #[location for location in locations]
+        self._locations= locations #','.split(locations) #[location for location in locations]
         self._departure_time= None
         self._assigned_truck: Truck= None
         self._assigned_packages: list[Package] = []
@@ -30,7 +30,6 @@ class Route:
         else:
             raise ValueError(f'The departure time of this route has already been set.')
         
-
     @property
     def assigned_truck(self):
         return self._assigned_truck

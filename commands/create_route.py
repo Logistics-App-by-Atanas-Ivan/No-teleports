@@ -1,30 +1,24 @@
 from core.application_data import ApplicationData
+from core.models_factory import ModelsFactory
 from commands.base.base import BaseCommand
 
 #createroute locations
 
 class CreateRoute(BaseCommand):
 
-    def __init__(self, params, app_data: ApplicationData):
+    def __init__(self, params, app_data: ApplicationData, models_factory: ModelsFactory):
         self.validate_params_count(params, 1)
         super().__init__(params, app_data)
-
+        self._models_factory = models_factory
 
     def execute(self):
-        route_locations = self.params[0]
-        for location in route_locations:
-            self.location_exists(location)
-            
-        pass
-        
-        # start_location, end_location, weight, email = self.params
-        # start_location = self.location_exists(start_location)
-        # end_location = self.location_exists(end_location, False)
-        # weight = self.try_parse_float(weight)
-        # user = self.app_data.user_exists(email) # implement later
-        
-        # package = self._models_factory.create_package(start_location, end_location, weight, user)
+        route_locations = self.params
 
-        # self.app_data.add_package(package)
+        for idx in range(len(route_locations)):
+            adjusted_loc = self.location_exists(route_locations[idx])
+            route_locations[idx] = adjusted_loc            
 
-        # return f'Package with ID {package.id} was created!'
+        route = self._models_factory.create_route(route_locations)
+        self.app_data.add_route(route)
+
+        return f'Route with ID {route.id} was created!'

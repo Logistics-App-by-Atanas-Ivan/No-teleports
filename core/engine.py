@@ -1,4 +1,3 @@
-
 from core.command_factory import CommandFactory
 
 
@@ -19,8 +18,10 @@ class Engine:
                     break
 
                 command = self._command_factory.create(input_line)
-                output.append(command.execute())
+                # output.append(command.execute())
+                print(command.execute())
             except ValueError as err:
-                output.append(err.args[0])
+                # output.append(err.args[0])
+                print(err.args[0])
 
-        print('\n'.join(output))
+        # print('\n'.join(output))

@@ -15,13 +15,13 @@ class AssignTruck(BaseCommand):
         truck_id = self.try_parse_int(truck_id)
         route_id = self.try_parse_int(route_id)
 
-        truck = self.app_data.find_truck(truck_id)
-        if not truck:
-            raise ValueError(f'Truck with ID {truck_id} was not found!')
-        
         route = self.app_data.find_route(route_id)
         if not route:
             raise ValueError(f'Route with ID {route_id} was not found!')
+        
+        truck = self.app_data.find_truck(route)
+        if truck.truck_id != truck_id:
+            raise ValueError(f'Truck with ID {truck_id} is no longer available! Please assign a different truck!')
         
         self.app_data.assign_truck(route, truck)
 

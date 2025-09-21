@@ -2,12 +2,12 @@ from datetime import datetime
 from models.constants.status import Status
 
 class Package:
-    def __init__(self, package_id, start_location, end_location, weight, user):
+    def __init__(self, package_id, start_location, end_location, weight, customer):
         self._package_id = package_id
         self._start_location = start_location
         self._end_location= end_location
         self._weight = weight 
-        self._user = user 
+        self._customer = customer 
         self._package_eta = None
 
     @property

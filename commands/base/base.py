@@ -14,7 +14,7 @@ class BaseCommand(ValidationHelpers):
 
     @property
     def app_data(self)->ApplicationData:
-        return self.app_data
+        return self._app_data
 
     def execute(self):
         # override in derived classes

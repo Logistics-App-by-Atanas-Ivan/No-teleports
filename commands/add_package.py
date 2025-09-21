@@ -26,6 +26,8 @@ class AddPackage(BaseCommand):
         
         for existing_route in routes:
             if existing_route.id == route_id:
+                if not existing_route.assigned_truck:
+                    raise ValueError(f'Route with ID {existing_route.route_id} does not have an assigned truck!')
                 self.app_data.assign_package(package,existing_route)
                 break
         else:
