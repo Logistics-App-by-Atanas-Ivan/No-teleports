@@ -2,12 +2,10 @@ from models.package import Package
 from datetime import datetime, timedelta, time
 from models.route import Route
 from models.truck import Truck
-from core.models_factory import ModelsFactory
 from models.city_distances import CityDistances
 from models.user import User
 from models.constants.status import Status
 from models.customer import Customer
-
 
 class ApplicationData:
     def __init__(self):
@@ -70,8 +68,7 @@ class ApplicationData:
             if start_location not in route.locations:
                 continue
 
-            if self.location_eta(route, start_location)<datetime.now():
-            # route.location_eta(start_location)<datetime.now():
+            if route.location_eta(start_location)<datetime.now():
                 continue
 
             if end_location not in route.locations:
@@ -106,69 +103,24 @@ class ApplicationData:
         for route in self.routes:
             if route.route_id == route_id:
                 return route
-
-    def assign_package(self, package: Package, route: Route):
-        package.package_eta = self.eta_calculation(package.end_location, route)
-        route.assign_package(package)
-
-
-    def assign_truck(self, route: Route, truck: Truck):
-        route.assigned_truck = truck
-        route_final_location = route.locations[-1]
-        # final_location_eta = route.location_eta(route_final_location)
-        final_location_eta = self.location_eta(route, route_final_location)
-        truck.available_from = final_location_eta
-        if truck.available_from <= datetime.combine(datetime.today().date() + timedelta(days=1), time(hour=6)): 
-            route.departure_time = datetime.combine(datetime.today().date() + timedelta(days=1), time(hour=6))
-        else:
-            route.departure_time = datetime.combine(truck.available_from.date() + timedelta(days=1), time(hour=6))
-
-    def location_eta(self, route: Route, location)->datetime:
-        if location == route.locations[0]:
-            return route.departure_time
-        location_eta = self.eta_calculation(location, route)
-        return location_eta
-
-    def eta_calculation(self, location, route: Route) -> datetime:
-        distance = self._city_distances.calculate_distance(location, route)
-        travel_time_in_minutes = timedelta(minutes=(distance / 87) * 60)
-        return route.departure_time + travel_time_in_minutes
     
     def add_route(self, route: Route):
         self._routes.append(route)
 
-    def view_unassigned_packages(self, location: str) -> dict:
+    def view_unassigned_packages_at_location(self, location: str) -> dict[str, int]:
         unassigned_packages = {}
         for package in self._packages:
-            if package.start_location == location:
+            if package.start_location == location and package.status == Status.UNASSIGNED:
                     unassigned_packages = self.loads_per_location(package, unassigned_packages)
         return unassigned_packages
     
-    def bulk_assign_at_location(self, route: Route, location: str) -> dict:
-        loads_per_location = {}
-        next_locations = route.locations[route.locations.index(location):]
-        for package in self._packages:
-            if package.status == Status.UNASSIGNED:
-                if package.start_location == location and package.end_location in next_locations:
-                    if route.free_capacity_at_location(package):
-                        self.assign_package(package)                      
-                        loads_per_location = self.loads_per_location(package, loads_per_location)
-        return loads_per_location
-
-    def loads_per_location(self, package: Package, dict: dict) -> dict:
+    def loads_per_location(self, package: Package, dict: dict[str, int]) -> dict[str, int]:
         loads_per_location = dict.copy()
         if package.end_location in loads_per_location:
             loads_per_location[package.end_location] += package.weight
         else:
             loads_per_location[package.end_location] = package.weight
         return loads_per_location
-
-    def bulk_assign(self, route, location, packages):
-        next_locations = route.locations[route.locations.index(location):]
-        for package in packages:
-            if package.status == Status.UNASSIGNED:
-                if package.start_location == location and package.end_location in next_locations:
-                    pass
     
     def find_customer(self, email) -> Customer:
         for customer in self._customers:
@@ -177,3 +129,5 @@ class ApplicationData:
     
     def add_customer(self, customer: Customer):
         self._customers.append(customer)
+
+    

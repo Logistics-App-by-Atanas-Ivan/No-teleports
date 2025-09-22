@@ -28,4 +28,4 @@ class FindSuitableRoute(BaseCommand):
         if not available_routes:
             return f'No available routes for package with ID {package.package_id}'
 
-        return f'Available routes for package {package.package_id}:\n' + '\n'.join(route.info for route in available_routes)
+        return f'Available routes for package {package.package_id}:\n' + '\n'.join(str(route) for route in available_routes)

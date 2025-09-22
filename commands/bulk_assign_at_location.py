@@ -27,9 +27,10 @@ class BulkAssignAtLocation(BaseCommand):
             raise ValueError(f'Location {location} is the end location of this route!')
         if not route.assigned_truck:
             raise ValueError(f'No truck assigned to route with ID {route_id}')
-        if self.app_data.location_eta(route, location) < datetime.now():
+        if route.location_eta(location) < datetime.now():
             raise ValueError(f'Location\'s ETA is in the past!')
                         
-        bulk_assigned_packages = self.app_data.bulk_assign_at_location(route, location)
+        bulk_assigned_packages = route.bulk_assign_at_location(location, self._app_data.packages, self.app_data.loads_per_location)
+
         lines = [f'Location: {loc} - Loaded weight: {kg} kg' for loc, kg in bulk_assigned_packages.items()]
         return '\n'.join(lines)

@@ -23,6 +23,8 @@ class AssignTruck(BaseCommand):
         if truck.truck_id != truck_id:
             raise ValueError(f'Truck with ID {truck_id} is no longer available! Please assign a different truck!')
         
-        self.app_data.assign_truck(route, truck)
+        route.assigned_truck = truck
+
+        # self.app_data.assign_truck(route, truck)
 
         return f'Truck with ID {truck_id} was assigned to Route with ID {route_id}!'

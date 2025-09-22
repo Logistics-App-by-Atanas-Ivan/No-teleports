@@ -2,13 +2,15 @@ from models.package import Package
 from models.truck import Truck
 from models.route import Route
 from models.customer import Customer
+from models.city_distances import CityDistances
+
 
 
 class ModelsFactory:
     def __init__(self):
         self._route_id = 1
         self._package_id = 1
-        # self._trucks = self._create_truck()
+        self._city_distances: CityDistances = CityDistances()
 
     def create_package(self, start_location, end_location, weight, customer)->Package:
         package_id = self._package_id
@@ -18,12 +20,10 @@ class ModelsFactory:
     def create_route(self,locations)->Route:
         route_id = self._route_id
         self._route_id+=1
-        return Route(route_id, locations)
+        return Route(route_id, locations, self._city_distances)
 
     def create_customer(self, first_name, last_name, email)->Customer:
         return Customer(first_name, last_name, email)
-
-
 
     def create_user(self, email):
         pass

@@ -12,3 +12,10 @@ CreateCustomer Petar Petrov p_petrov@gmail.com
 CreatePackage Brisbane Sydney 500 john_doe@gmail.com
 CreatePackage Brisbane Melbourne 5000 p_petrov@gmail.com
 ViewUnassignedPackages Brisbane
+CreateRoute Brisbane Sydney Melbourne
+FindTruck 1
+AssignTruck 1001 1
+BulkAssignAtLocation 1 Brisbane
+CreatePackage Sydney Melbourne 45 john_doe@gmail.com
+FindSuitableRoute 3
+AddPackage 3 1

@@ -21,4 +21,4 @@ class FindTruck(BaseCommand):
         
         suitable_truck = self.app_data.find_truck(route)
 
-        return f'Truck with ID {suitable_truck.truck_id} | Brand: {suitable_truck.truck_brand} | Capacity: {suitable_truck.truck_capacity} | Range: {suitable_truck.truck_range} is available from {suitable_truck.available_from}!'
+        return f'Truck with ID {suitable_truck.truck_id} | Brand: {suitable_truck.truck_brand} | Capacity: {suitable_truck.truck_capacity} kg | Range: {suitable_truck.truck_range} km is available from {suitable_truck.available_from.strftime("%Y-%m-%d %H:%M")}!'

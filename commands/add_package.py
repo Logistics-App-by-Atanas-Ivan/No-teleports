@@ -25,12 +25,13 @@ class AddPackage(BaseCommand):
             return f'No available routes for package with ID {package.package_id}'
         
         for existing_route in routes:
-            if existing_route.id == route_id:
+            if existing_route.route_id == route_id:
                 if not existing_route.assigned_truck:
                     raise ValueError(f'Route with ID {existing_route.route_id} does not have an assigned truck!')
-                self.app_data.assign_package(package,existing_route)
+                #self.app_data.assign_package(package,existing_route)
+                existing_route.assign_package(package)
                 break
         else:
             return f'Package with ID {package_id} cannot be sent via route {route_id}!'
 
-        return f'Package with ID {package.id} was added to route {route_id}!'
+        return f'Package with ID {package.package_id} was added to route {route_id}!'
