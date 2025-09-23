@@ -16,8 +16,6 @@ class FindSuitableRoute(BaseCommand):
     
         package = self.app_data.find_package(package_id)
 
-        if package is None:
-            raise ValueError(f'Package with ID {package_id} does not exist!')
         
         if not package.status== Status.UNASSIGNED:
             raise ValueError(
@@ -29,3 +27,6 @@ class FindSuitableRoute(BaseCommand):
             return f'No available routes for package with ID {package.package_id}'
 
         return f'Available routes for package {package.package_id}:\n' + '\n'.join(str(route) for route in available_routes)
+    
+    def _requires_login(self) -> bool:
+        return True

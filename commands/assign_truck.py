@@ -28,3 +28,6 @@ class AssignTruck(BaseCommand):
         # self.app_data.assign_truck(route, truck)
 
         return f'Truck with ID {truck_id} was assigned to Route with ID {route_id}!'
+    
+    def _requires_login(self) -> bool:
+        return True

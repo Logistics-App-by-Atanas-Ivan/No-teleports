@@ -18,3 +18,6 @@ class FindCustomer(BaseCommand):
             raise ValueError(f'Customer with email {email} does not exist!')
         
         return f'Customer - Email {email} | First Name: {customer.first_name} | Last Name: {customer.last_name}.' #Extend with creation date & time
+    
+    def _requires_login(self) -> bool:
+        return True

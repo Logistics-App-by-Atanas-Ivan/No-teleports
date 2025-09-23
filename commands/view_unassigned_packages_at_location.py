@@ -17,3 +17,6 @@ class ViewUnassignedPackagesAtLocation(BaseCommand):
         lines = [f'Location: {loc} - Total weight: {kg} kg' for loc, kg in unassigned_packages_at_location.items()]
 
         return '\n'.join(lines)
+    
+    def _requires_login(self) -> bool:
+        return True

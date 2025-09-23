@@ -31,3 +31,6 @@ class CreateRoute(BaseCommand):
         self.app_data.add_route(route)
 
         return f'Route with ID {route.route_id} was created!'
+    
+    def _requires_login(self) -> bool:
+        return True

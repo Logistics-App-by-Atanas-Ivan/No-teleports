@@ -11,8 +11,8 @@ class CreatePackage(BaseCommand):
         super().__init__(params, app_data)
         self._models_factory = models_factory
 
-
     def execute(self):
+        
         start_location, end_location, weight, email = self.params
         start_location = self.location_exists(start_location)
         end_location = self.location_exists(end_location, False)
@@ -26,3 +26,6 @@ class CreatePackage(BaseCommand):
         self.app_data.add_package(package)
 
         return f'Package with ID {package.package_id} was created!'
+    
+    def _requires_login(self) -> bool:
+        return True

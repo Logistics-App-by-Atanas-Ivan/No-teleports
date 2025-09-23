@@ -9,6 +9,11 @@ from commands.view_unassigned_packages_at_location import ViewUnassignedPackages
 from commands.bulk_assign_at_location import BulkAssignAtLocation
 from commands.find_customer import FindCustomer
 from commands.create_customer import CreateCustomer
+from commands.login import Login
+from commands.logout import Logout
+from commands.create_user import CreateUser
+from commands.view_all_unassigned_packages import ViewAllUnassignedPackages
+from commands.find_package import FindPackage
 from commands.bulk_assign_by_id import BulkAssignById
 
 
@@ -52,6 +57,23 @@ class CommandFactory:
 
         if cmd.lower() == "createcustomer":
             return CreateCustomer(params, self._app_data, self._models_factory)
+        
+        if cmd.lower() == 'login':
+            return Login(params, self._app_data)
+        
+        if cmd.lower() == 'logout':
+            return Logout(params, self._app_data)
+        
+        if cmd.lower() == 'createuser':
+            return CreateUser(params, self._app_data)
+        
+        if cmd.lower() == 'viewallunassignedpackages':
+            return ViewAllUnassignedPackages(params, self._app_data)
+        
+        if cmd.lower() == 'findpackage':
+            return FindPackage(params, self._app_data)
+        
+
 
         # if cmd.lower() == "bulkassignbyid":
         #     return BulkAssignById(params, self._app_data)                     

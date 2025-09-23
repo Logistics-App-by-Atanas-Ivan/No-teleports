@@ -34,3 +34,6 @@ class BulkAssignAtLocation(BaseCommand):
 
         lines = [f'Location: {loc} - Loaded weight: {kg} kg' for loc, kg in bulk_assigned_packages.items()]
         return '\n'.join(lines)
+    
+    def _requires_login(self) -> bool:
+        return True

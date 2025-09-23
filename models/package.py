@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta, time
 from models.constants.status import Status
 
 class Package:
@@ -28,7 +28,7 @@ class Package:
         return self._weight
     
     @property
-    def package_eta(self):
+    def package_eta(self)->datetime:
         return self._package_eta
     
     @package_eta.setter
@@ -54,7 +54,12 @@ class Package:
         
         return f'Package with ID {self.package_id} has been delivered to {self._end_location} on {self.package_eta}'
 
+    def __str__(self):
+        if self.package_eta:
 
+            return f'ID: {self.package_id} | Start Location: {self.start_location} | End Location: {self.end_location} | ETA: {self.package_eta.strftime("%Y-%m-%d %H:%M")}'
+        
+        return f'ID: {self.package_id} | Start Location: {self.start_location} | End Location: {self.end_location} | ETA: N/A'
 
 
 

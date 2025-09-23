@@ -18,29 +18,21 @@ class BaseCommand(ValidationHelpers):
 
     def execute(self):
         # override in derived classes
+        if self._requires_login() and not self._app_data.has_logged_in_user:
+            raise ValueError('You are not logged in! Please login first!')
+        
+    
         return ""
     
-
-
-
-
-# from commands.base.base_command import BaseCommand
-# from commands.validation_helpers import ValidateParamsCount
-
-
-# class AddTest (BaseCommand, ValidateParamsCount):
+    def _requires_login(self) -> bool:
+        raise NotImplementedError('Override in derived class')
+    
+    
+    def _throw_if_user_logged_in(self):
+        if self._app_data.has_logged_in_user:
+            logged_user = self._app_data.logged_in_user
+            raise ValueError(
+                f'User with email {logged_user.email} logged in! Please log out first!')
     
 
-#     def __init__(self, params, app_data):
-#         self.validate_params_count(params,2)
-#         self._group = app_data.find_test_group(params[0])
-#         if self._group is None:
-#             raise ValueError('Please enter a valid group ID')
-#         super().__init__(params, app_data)
-
-    
-#     def execute(self):
-#         description = self._params[1]
-#         test = self.app_data.create_test(self._group, description)
-#         return f'Test #{test.id} added to group #{self._group.id}'
     

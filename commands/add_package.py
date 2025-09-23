@@ -15,8 +15,6 @@ class AddPackage(BaseCommand):
     def execute(self):
         package_id = self.try_parse_int(self.params[0])    
         package = self.app_data.find_package(package_id)
-        if package is None:
-            raise ValueError(f'Package with ID {package_id} does not exist!')
         
         route_id = self.try_parse_int(self.params[1])
 
@@ -35,3 +33,6 @@ class AddPackage(BaseCommand):
             return f'Package with ID {package_id} cannot be sent via route {route_id}!'
 
         return f'Package with ID {package.package_id} was added to route {route_id}!'
+    
+    def _requires_login(self) -> bool:
+        return True

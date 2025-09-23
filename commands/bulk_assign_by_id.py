@@ -45,3 +45,6 @@ class BulkAssignById(BaseCommand):
             lines.append(f'Package ID {package.package_id} has been assigned to Route ID {route.route_id}!')
 
         return '\n'.join(lines)
+    
+    def _requires_login(self) -> bool:
+        return True

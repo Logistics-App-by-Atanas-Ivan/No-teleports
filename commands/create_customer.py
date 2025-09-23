@@ -17,3 +17,6 @@ class CreateCustomer(BaseCommand):
         self.app_data.add_customer(customer)
 
         return f'Customer with Email {email} was created!'
+    
+    def _requires_login(self) -> bool:
+        return True
