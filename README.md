@@ -28,6 +28,10 @@ FindPackage 1
 FindPackage 2
 FindPackage 3
 FindPackage 4
+ViewDeliveryRoutes
+Logout
+Login manager1@telerikacademy.com 123456
+ViewDeliveryRoutes
 
 
 

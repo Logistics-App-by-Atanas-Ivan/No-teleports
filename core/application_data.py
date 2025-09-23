@@ -12,9 +12,6 @@ class ApplicationData:
         self._routes: list[Route] = []
         self._packages: list[Package] =[]
         self._users: list[User] = [self.create_initial_manager()] # email, first_name, last_name, password, role
-
-        # self.create_user('manager1@telerikacademy.com', 'Pesho', 'Peshov', 123456, 'Manager')
-
         self._logged_user = None
         self._customers: list[Customer] = []
         self._trucks: list[Truck] = self.create_truck()
@@ -98,6 +95,14 @@ class ApplicationData:
             available_routes.append(route)
         
         return available_routes
+    
+    def find_active_routes(self)->list[Route]:
+        active_routes=[]
+        for route in self.routes:
+
+            if route.departure_time and route.departure_time< datetime.now() +timedelta(hours=24)<route.location_eta(route.locations[-1]):
+                active_routes.append(route)
+        return active_routes
     
     def find_truck(self, route: Route) -> Truck:
         route_total_distance = self._city_distances.calculate_distance(route.locations[-1], route)

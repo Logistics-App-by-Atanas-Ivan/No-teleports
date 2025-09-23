@@ -73,7 +73,33 @@ class Route:
             info+= f'{loc} ({self.location_eta(loc).strftime("%Y-%m-%d %H:%M")}) -> '
 
         return info[:-4]
+    
+    
+    def route_report(self, func: Callable[[Package, dict[str,int]],dict[str,int]] = None )->str:
+        loads_per_location={}
+        for package in self._assigned_packages:
+            loads_per_location = func(package, loads_per_location)
 
+        load_at_start_location = 0
+
+        for package in self._assigned_packages:
+            if package.start_location==self.locations[0]:
+                load_at_start_location+=package.weight
+
+        headline = str(self)+'\n'+f'{self.locations[0]} - {load_at_start_location} kg'
+
+        next_stop =''
+
+        for loc in self.locations[1:]:
+
+
+            if datetime.now()+timedelta(hours=24) < self.location_eta(loc):
+                next_stop = '\n'+f'Expexted current stop: {loc}' 
+
+            headline += '\n'+f'{loc} - {loads_per_location.get(loc, 0)} kg'
+
+        return headline + next_stop
+        
 
     def free_capacity_at_location(self, package : Package):
         loaded_weight = 0
