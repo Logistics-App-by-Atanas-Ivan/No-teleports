@@ -12,6 +12,7 @@ class FindSuitableRoute(BaseCommand):
 
 
     def execute(self):
+        super().execute()
         package_id = self.try_parse_int(self.params[0])
     
         package = self.app_data.find_package(package_id)

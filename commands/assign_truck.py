@@ -11,6 +11,7 @@ class AssignTruck(BaseCommand):
 
 
     def execute(self):
+        super().execute()
         truck_id, route_id = self.params
         truck_id = self.try_parse_int(truck_id)
         route_id = self.try_parse_int(route_id)

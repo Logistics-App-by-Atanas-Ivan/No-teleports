@@ -15,8 +15,8 @@ from commands.create_user import CreateUser
 from commands.view_all_unassigned_packages import ViewAllUnassignedPackages
 from commands.find_package import FindPackage
 from commands.view_delivery_routes import ViewDeliveryRoutes
+from commands.save_app_data import SaveAppData
 from commands.bulk_assign_by_id import BulkAssignById
-
 
 class CommandFactory:
     def __init__(self, data):
@@ -77,8 +77,9 @@ class CommandFactory:
         if cmd.lower() == 'viewdeliveryroutes':
             return ViewDeliveryRoutes(params, self._app_data)
         
-
-
+        if cmd.lower() == 'saveappdata':
+            return SaveAppData(params, self._app_data)
+        
         # if cmd.lower() == "bulkassignbyid":
         #     return BulkAssignById(params, self._app_data)                     
 

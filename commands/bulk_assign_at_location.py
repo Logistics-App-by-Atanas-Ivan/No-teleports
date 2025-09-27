@@ -14,6 +14,7 @@ class BulkAssignAtLocation(BaseCommand):
 
 
     def execute(self):
+        super().execute()
         route_id = self.try_parse_int(self.params[0])
         location = self.location_exists(self.params[1])
 

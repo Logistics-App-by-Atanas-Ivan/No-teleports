@@ -14,6 +14,7 @@ class BulkAssignById(BaseCommand):
 
 
     def execute(self):
+        super().execute()
         route_id, *package_ids = self.params
         route_id = self.try_parse_int(route_id)
         package_ids = [package_id for package_id in package_ids if self.try_parse_int(package_id)]

@@ -15,11 +15,12 @@ class CreateRoute(BaseCommand):
                 params.pop(i+1)
            
         if len(params)<2:
-            raise ValueError(f'Invalid number of arguments. Expected: moinimum two; received: {len(params)}.')
+            raise ValueError(f'Invalid number of arguments. Expected: minimum two; received: {len(params)}.')
         super().__init__(params, app_data)
         self._models_factory = models_factory
 
     def execute(self):
+        super().execute()
         route_locations = self._params
 
         for idx in range(len(route_locations)):

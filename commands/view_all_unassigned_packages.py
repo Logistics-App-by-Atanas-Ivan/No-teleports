@@ -11,6 +11,7 @@ class ViewAllUnassignedPackages(BaseCommand):
         super().__init__(params, app_data)
 
     def execute(self):
+        super().execute()
 
         logged_in_user = self.app_data.logged_in_user
         if logged_in_user.user_role== UserRole.REGULAR:

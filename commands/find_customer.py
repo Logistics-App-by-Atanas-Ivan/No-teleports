@@ -11,6 +11,7 @@ class FindCustomer(BaseCommand):
 
 
     def execute(self):
+        super().execute()
         email = self.params[0] #Open: Add email validations
         
         customer = self.app_data.find_customer(email)

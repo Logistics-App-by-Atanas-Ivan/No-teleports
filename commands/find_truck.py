@@ -11,6 +11,7 @@ class FindTruck(BaseCommand):
 
 
     def execute(self):
+        super().execute()
         route_id = self.try_parse_int(self.params[0])
     
         route = self.app_data.find_route(route_id)

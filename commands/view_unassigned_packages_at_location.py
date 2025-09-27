@@ -10,6 +10,7 @@ class ViewUnassignedPackagesAtLocation(BaseCommand):
         super().__init__(params, app_data)
 
     def execute(self):
+        super().execute()
         location = self.location_exists(self.params[0])
 
         unassigned_packages_at_location = self.app_data.view_unassigned_packages_at_location(location)

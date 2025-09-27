@@ -14,7 +14,7 @@ class User:
     
     @property
     def last_name(self):
-        return self._first_name
+        return self._last_name
     
     @property
     def email(self):

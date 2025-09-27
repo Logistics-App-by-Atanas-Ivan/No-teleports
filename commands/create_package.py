@@ -12,7 +12,8 @@ class CreatePackage(BaseCommand):
         self._models_factory = models_factory
 
     def execute(self):
-        
+        super().execute()
+    
         start_location, end_location, weight, email = self.params
         start_location = self.location_exists(start_location)
         end_location = self.location_exists(end_location, False)
