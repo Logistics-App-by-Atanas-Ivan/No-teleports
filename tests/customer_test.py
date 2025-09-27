@@ -9,9 +9,9 @@ class Customer_Should(unittest.TestCase):
         customer = Customer(td.VALID_FIRSTNAME, td.VALID_LASTNAME, td.VALID_EMAIL)
 
         # Assert
-        self.assertEqual(td.VALID_FIRSTNAME, customer.first_name)
-        self.assertEqual(td.VALID_LASTNAME, customer.last_name)
-        self.assertEqual(td.VALID_EMAIL, customer.email)
+        self.assertEqual(customer.first_name, td.VALID_FIRSTNAME)
+        self.assertEqual(customer.last_name, td.VALID_LASTNAME)
+        self.assertEqual(customer.email, td.VALID_EMAIL)
 
     def test_init_raiseError_first_name_too_short(self):
         with self.assertRaises(ValueError):
@@ -46,3 +46,7 @@ class Customer_Should(unittest.TestCase):
     def test_init_raiseError_email_domain_part_too_short(self):
         with self.assertRaises(ValueError):
             customer = Customer(td.VALID_FIRSTNAME, td.VALID_LASTNAME, 'test123@')
+
+    def test_init_raiseError_email_missing_at(self):
+        with self.assertRaises(ValueError):
+            customer = Customer(td.VALID_FIRSTNAME, td.VALID_LASTNAME, 'test123ATtest.com')

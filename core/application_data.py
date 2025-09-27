@@ -11,20 +11,20 @@ class ApplicationData:
     def __init__(self):
         self._routes: list[Route] = []
         self._packages: list[Package] =[]
-        self._users: list[User] = [self.create_initial_manager()] # email, first_name, last_name, password, role
+        self._users: list[User] = [self._create_initial_manager()] # email, first_name, last_name, password, role
         self._logged_user = None
         self._customers: list[Customer] = []
-        self._trucks: list[Truck] = self.create_truck()
+        self._trucks: list[Truck] = self._create_truck()
         self._city_distances: CityDistances = CityDistances()
 
     @staticmethod
-    def create_initial_manager():
+    def _create_initial_manager():
         user = User('manager1@telerikacademy.com', 'Pesho', 'Peshov', '123456', 'Manager')
         return user
         
 
     @staticmethod
-    def create_truck()->list[Truck]:
+    def _create_truck()->list[Truck]:
         # id, brand, capacity, range
         trucks = []
         for id in range(1001,1041):
@@ -34,28 +34,73 @@ class ApplicationData:
                 trucks.append(Truck(id,'Man',37000,10000))
             else:
                 trucks.append(Truck(id,'Actros',26000,13000))
-        return trucks       
-
+        return trucks
+    
+    # Read-only views
     @property
     def routes(self):
         return tuple(self._routes)
+    
     @property
     def packages(self):
         return tuple(self._packages)
+    
     @property
     def users(self):
         return tuple(self._users)
+    
+    @property
+    def customers(self):
+        return (tuple(self._customers))
+    
     @property
     def trucks(self):
         return tuple(self._trucks)
     
+    # Authentication
+    @property
+    def has_logged_in_user(self):
+        return self._logged_user is not None
     
+    @property
+    def logged_in_user(self):
+        if self.has_logged_in_user:
+            return self._logged_user
+        else:
+            raise ValueError('There is no logged in user.')       
+
+    def login(self, user: User):
+        self._logged_user = user
+
+    def logout(self):
+        self._logged_user = None 
+    
+    # Users
+    def create_user(self, email, firstname, lastname, password, user_role) -> User:
+        if len([u for u in self._users if u.email == email]) > 0:
+            raise ValueError(
+                f'User with email {email} already exist. Choose a different email!')
+
+        user = User(email, firstname, lastname, password, user_role)
+        self._users.append(user)
+        return user
+        
     def find_user(self, email) -> User:
         for user in self._users:
             if user.email == email:
                 return user
         raise ValueError(f'There is no user with email {email}!')
 
+    #Customers
+    def add_customer(self, customer: Customer):
+        self._customers.append(customer)
+
+    def find_customer(self, email) -> Customer:
+        for customer in self._customers:
+            if customer.email == email:
+                return customer    
+
+    #Packages
     def add_package(self, package):
         self._packages.append(package)
 
@@ -64,7 +109,38 @@ class ApplicationData:
             if package.package_id == package_id:
                 return package
         raise ValueError(f'Package with ID {package_id} does not exist!')
-            
+
+    def view_all_unassigned_packages(self):
+        packages =[]
+        for unassigned_package in self._packages:
+            if unassigned_package.status==Status.UNASSIGNED:
+                packages.append(unassigned_package)
+        return packages
+
+    def view_unassigned_packages_at_location(self, location: str) -> dict[str, int]:
+        unassigned_packages = {}
+        for package in self._packages:
+            if package.start_location == location and package.status == Status.UNASSIGNED:
+                    unassigned_packages = self.loads_per_location(package, unassigned_packages)
+        return unassigned_packages
+    
+    def loads_per_location(self, package: Package, dict: dict[str, int]) -> dict[str, int]:
+        loads_per_location = dict.copy()
+        if package.end_location in loads_per_location:
+            loads_per_location[package.end_location] += package.weight
+        else:
+            loads_per_location[package.end_location] = package.weight
+        return loads_per_location 
+
+    #Routes
+    def add_route(self, route: Route):
+        self._routes.append(route)
+
+    def find_route(self, route_id: int) -> Route:
+        for route in self.routes:
+            if route.route_id == route_id:
+                return route
+
     def find_existing_route(self, package: Package) -> list[Route]:
         start_location = package.start_location
         end_location = package.end_location
@@ -104,6 +180,7 @@ class ApplicationData:
                 active_routes.append(route)
         return active_routes
     
+    #Trucks
     def find_truck(self, route: Route) -> Truck:
         route_total_distance = self._city_distances.calculate_distance(route.locations[-1], route)
 
@@ -115,69 +192,3 @@ class ApplicationData:
                 elif not suitable_truck or truck.available_from < suitable_truck.available_from:
                     suitable_truck = truck
         return suitable_truck
-
-    def find_route(self, route_id: int) -> Route:
-        for route in self.routes:
-            if route.route_id == route_id:
-                return route
-    
-    def add_route(self, route: Route):
-        self._routes.append(route)
-
-    def view_unassigned_packages_at_location(self, location: str) -> dict[str, int]:
-        unassigned_packages = {}
-        for package in self._packages:
-            if package.start_location == location and package.status == Status.UNASSIGNED:
-                    unassigned_packages = self.loads_per_location(package, unassigned_packages)
-        return unassigned_packages
-    
-    def loads_per_location(self, package: Package, dict: dict[str, int]) -> dict[str, int]:
-        loads_per_location = dict.copy()
-        if package.end_location in loads_per_location:
-            loads_per_location[package.end_location] += package.weight
-        else:
-            loads_per_location[package.end_location] = package.weight
-        return loads_per_location
-    
-    def view_all_unassigned_packages(self):
-        packages =[]
-        for unassigned_package in self._packages:
-            if unassigned_package.status==Status.UNASSIGNED:
-                packages.append(unassigned_package)
-        return packages
-    
-    def find_customer(self, email) -> Customer:
-        for customer in self._customers:
-            if customer.email == email:
-                return customer
-    
-    def add_customer(self, customer: Customer):
-        self._customers.append(customer)
-
-    @property
-    def logged_in_user(self):
-        if self.has_logged_in_user:
-            return self._logged_user
-        else:
-            raise ValueError('There is no logged in user.')
-        
-    def create_user(self, email, firstname, lastname, password, user_role) -> User:
-        if len([u for u in self._users if u.email == email]) > 0:
-            raise ValueError(
-                f'User with email {email} already exist. Choose a different email!')
-
-        user = User(email, firstname, lastname, password, user_role)
-        self._users.append(user)
-        return user
-
-    @property
-    def has_logged_in_user(self):
-        return self._logged_user is not None
-
-    def login(self, user: User):
-        self._logged_user = user
-
-    def logout(self):
-        self._logged_user = None
-
-    
