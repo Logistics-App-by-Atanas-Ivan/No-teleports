@@ -26,8 +26,3 @@ class CityDistances:
 
             if route.locations[x]==end_location:
                 return distance
-
-            
-
-
-    
