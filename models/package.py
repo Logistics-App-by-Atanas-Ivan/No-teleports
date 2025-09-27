@@ -3,16 +3,21 @@ from models.constants.status import Status
 
 class Package:
     def __init__(self, package_id, start_location, end_location, weight, customer):
-        self._package_id = package_id
+        self.package_id = package_id
         self._start_location = start_location
         self._end_location= end_location
-        self._weight = weight 
+        self.weight = weight 
         self._customer = customer 
         self._package_eta = None
 
     @property
     def package_id(self):
-        return self._package_id 
+        return self._package_id
+    @package_id.setter
+    def package_id(self, value):
+        if not isinstance(value, int):
+            raise ValueError("ID must be an integer")
+        self._package_id = value
 
     @property
     def status(self):
@@ -26,17 +31,24 @@ class Package:
     @property
     def weight(self):
         return self._weight
+    @weight.setter
+    def weight(self, value):
+        if value<=0:
+            raise ValueError('Package weight cannot be zero or negative')
+        self._weight = value
+        
     
     @property
     def package_eta(self)->datetime:
         return self._package_eta
     
     @package_eta.setter
-    def package_eta(self, value):
-        if self.status==Status.UNASSIGNED:
-            self._package_eta=value
-        else:
+    def package_eta(self, value: datetime):
+        if self._package_eta is not None:
             raise ValueError(f'ETA for package with ID {self.package_id} has already been set.')
+        if not isinstance(value, datetime):
+            raise ValueError("ETA must be a datetime object")
+        self._package_eta = value
         
     @property
     def start_location(self):
