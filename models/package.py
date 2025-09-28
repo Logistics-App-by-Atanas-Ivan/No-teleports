@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta, time
 from models.constants.status import Status
+from models.customer import Customer
 
 class Package:
     def __init__(self, package_id, start_location, end_location, weight, customer):
@@ -7,7 +8,7 @@ class Package:
         self._start_location = start_location
         self._end_location= end_location
         self.weight = weight 
-        self._customer = customer 
+        self._customer: Customer = customer 
         self._package_eta = None
 
     @property
@@ -75,7 +76,28 @@ class Package:
 
 
 
-
+    def to_dict(self):
+        return {
+            'package_id' : self.package_id,
+            'start_location' : self.start_location,
+            'end_location' : self.end_location,
+            'customer' : self._customer.to_dict(),
+            'package_eta' : self.package_eta.isoformat() if self.package_eta else None,
+        }
+    
+    @classmethod
+    def from_dict(cls, data):
+        customer = Customer.from_dict(data['customer'])
+        package = cls(
+            data['package_id'],
+            data['start_location'],
+            data['end_location'],
+            data['weight'],
+            customer
+        )
+        eta = datetime.fromisoformat(data['package_eta']) if data['package_eta'] else None
+        package.package_eta = eta
+        return package
     
         
 

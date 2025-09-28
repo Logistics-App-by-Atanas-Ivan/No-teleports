@@ -7,7 +7,7 @@ class Truck:
         self._truck_brand = brand
         self._truck_capacity = capacity
         self._truck_range = range
-        self._avaialble_from = datetime.now()
+        self._available_from = datetime.now()
     
     @property
     def truck_id(self):
@@ -27,7 +27,7 @@ class Truck:
     
     @property
     def available_from(self) -> datetime:
-        return self._avaialble_from
+        return self._available_from
     
     @available_from.setter
     def available_from(self, date):
@@ -40,3 +40,27 @@ class Truck:
         if self.available_from>datetime.now():
             return Status.UNAVAILABLE
         return Status.AVAILABLE
+    
+
+    def to_dict(self):
+        return {
+            'truck_id' : self.truck_id,
+            'truck_brand' : self.truck_brand,
+            'truck_capacity' : self.truck_capacity,
+            'truck_range' : self.truck_range,
+            'available_from' : self.available_from.isoformat()
+        }
+    
+    @classmethod
+    def from_dict(cls, data):
+        truck = cls(
+            data['truck_id'],
+            data['truck_brand'],
+            data['truck_capacity'],
+            data['truck_range'],
+        )
+
+        available_from = datetime.fromisoformat(data['available_from']) 
+        truck.available_from = available_from
+
+        return truck

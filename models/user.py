@@ -37,3 +37,24 @@ class User:
                 raise ValueError ('Password contains invalid symbols!')
         self._password = value 
 
+
+    def to_dict(self):
+        return {
+            'email' : self.email,
+            'first_name' : self.first_name,
+            'last_name' : self.last_name,
+            'password' : self.password,
+            'user_role' : self.user_role
+        }
+    
+    @classmethod
+    def from_dict(cls, data):
+        user = cls(
+            data['email'],
+            data['first_name'],
+            data['last_name'],
+            data['password'],
+            data['user_role']
+        )
+
+        return user
