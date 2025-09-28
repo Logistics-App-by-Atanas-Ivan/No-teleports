@@ -69,8 +69,12 @@ class Route:
 
     def __str__(self):
         info = f'Route ID {self.route_id} | '
+        
         for loc in self.locations:
-            info+= f'{loc} ({self.location_eta(loc).strftime("%Y-%m-%d %H:%M")}) -> '
+            if self.departure_time:
+                info+= f'{loc} ({self.location_eta(loc).strftime("%Y-%m-%d %H:%M")}) -> '
+            else:
+                info+= f'{loc} (ETA: N/A) -> '
 
         return info[:-4]
     
@@ -89,6 +93,7 @@ class Route:
         headline = str(self)+'\n'+f'{self.locations[0]} - {load_at_start_location} kg'
 
         next_stop =''
+        total_weight_delivered = '\n'+f'Total weight: {sum(package.weight for package in self._assigned_packages)} kg'
 
         for loc in self.locations[1:]:
 
@@ -98,7 +103,7 @@ class Route:
 
             headline += '\n'+f'{loc} - {loads_per_location.get(loc, 0)} kg'
 
-        return headline + next_stop
+        return headline + next_stop + total_weight_delivered
         
 
     def free_capacity_at_location(self, package : Package):
