@@ -99,7 +99,7 @@ class ApplicationData:
         for customer in self._customers:
             if customer.email == email:
                 return customer
-        raise ValueError(f'Customer with email {email} already exists!')
+        raise ValueError(f'Customer with email {email} does not exists!')
 
     #Packages
     def add_package(self, package: Package):
