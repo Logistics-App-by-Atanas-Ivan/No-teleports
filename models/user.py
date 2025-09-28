@@ -27,8 +27,9 @@ class User:
     @property
     def password(self):
         return self._password
+    
     @password.setter
-    def password(self,value):
+    def password(self,value : str):
         if not 5<=len(value)<=30:
             raise ValueError(f'Password must be between 5 and 30 characters long!')
         

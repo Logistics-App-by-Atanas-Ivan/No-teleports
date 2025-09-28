@@ -98,10 +98,14 @@ class ApplicationData:
     def find_customer(self, email) -> Customer:
         for customer in self._customers:
             if customer.email == email:
-                return customer    
+                return customer
+        raise ValueError(f'Customer with email {email} already exists!')
 
     #Packages
-    def add_package(self, package):
+    def add_package(self, package: Package):
+        for p in self._packages:
+            if p.package_id == package.package_id:
+                raise ValueError(f'Package with ID {package.package_id} already exists!')
         self._packages.append(package)
 
     def find_package(self, package_id: int)->Package:
@@ -116,6 +120,14 @@ class ApplicationData:
             if unassigned_package.status==Status.UNASSIGNED:
                 packages.append(unassigned_package)
         return packages
+    
+    def loads_per_location(self, package: Package, dict: dict[str, int]) -> dict[str, int]:
+        loads_per_location = dict.copy()
+        if package.end_location in loads_per_location:
+            loads_per_location[package.end_location] += package.weight
+        else:
+            loads_per_location[package.end_location] = package.weight
+        return loads_per_location
 
     def view_unassigned_packages_at_location(self, location: str) -> dict[str, int]:
         unassigned_packages = {}
@@ -124,22 +136,18 @@ class ApplicationData:
                     unassigned_packages = self.loads_per_location(package, unassigned_packages)
         return unassigned_packages
     
-    def loads_per_location(self, package: Package, dict: dict[str, int]) -> dict[str, int]:
-        loads_per_location = dict.copy()
-        if package.end_location in loads_per_location:
-            loads_per_location[package.end_location] += package.weight
-        else:
-            loads_per_location[package.end_location] = package.weight
-        return loads_per_location 
-
     #Routes
     def add_route(self, route: Route):
+        for r in self._routes:
+            if r.route_id == route.route_id:
+                raise ValueError(f'Package with ID {route.route_id} already exists!')
         self._routes.append(route)
 
     def find_route(self, route_id: int) -> Route:
         for route in self.routes:
             if route.route_id == route_id:
                 return route
+        raise ValueError(f'Route with ID {route_id} does not exist!')
 
     def find_existing_route(self, package: Package) -> list[Route]:
         start_location = package.start_location
@@ -175,7 +183,6 @@ class ApplicationData:
     def find_active_routes(self)->list[Route]:
         active_routes=[]
         for route in self.routes:
-
             if route.departure_time and route.departure_time< datetime.now() +timedelta(hours=24)<route.location_eta(route.locations[-1]):
                 active_routes.append(route)
         return active_routes

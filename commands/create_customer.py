@@ -14,6 +14,7 @@ class CreateCustomer(BaseCommand):
     def execute(self):
         super().execute()
         first_name, last_name, email = self.params #validations
+        self.app_data.find_customer(email)
         customer = self._models_factory.create_customer(first_name, last_name, email)
         self.app_data.add_customer(customer)
 
