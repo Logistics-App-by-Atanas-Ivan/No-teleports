@@ -64,15 +64,13 @@ class CreatePackage_Should(unittest.TestCase):
         params = ['Sydney', 'Melbourne', '45', 'atanas@telerikacademy.com']
         customer = object()
         package = Mock()
-        
+
         package.package_id = 1
 
         self.app_data.find_customer.return_value = customer
         self.models_factory.create_package.return_value = package
 
         cmd = CreatePackage(params, self.app_data, self.models_factory)
-  
-
     
         self.assertEqual('Package with ID 1 was created!', cmd.execute())
 

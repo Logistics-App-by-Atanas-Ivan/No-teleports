@@ -18,12 +18,23 @@ class SaveAppData(BaseCommand):
         if logged_in_user.user_role!= UserRole.MANAGER:
             raise ValueError(f'Current user role {logged_in_user.user_role} - only managers can save the application data')
 
-        data='to be implemented'
+        routes=''
+
+        for route in self.app_data.routes:
+            routes+=route.route_report(self.app_data.loads_per_location) +'\n'
+
+        packages = ''
+
+        for package in self.app_data.packages:
+            packages+= str(package)+'\n'
+
+
+        final_info = routes+(100*'*')+'\n' +packages
 
         cwd = path.dirname(__file__)
-        file_path = path.join(cwd,'../data/app_state.json')
-        json_file = open(file_path, mode='w')
-        contents = json_file.write()
+        file_path = path.join(cwd,'../data/app_state_2.txt')
+        with open(file_path, "w") as file:
+            file.write(final_info)
 
         return 'App data has been saved successfully'
     

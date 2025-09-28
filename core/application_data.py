@@ -199,3 +199,29 @@ class ApplicationData:
                 elif not suitable_truck or truck.available_from < suitable_truck.available_from:
                     suitable_truck = truck
         return suitable_truck
+    
+
+    def to_dict(self):
+        return {
+            'routes': [r.to_dict() for r in self.routes],
+            'packages': [p.to_dict() for p in self.packages],
+            'users': [u.to_dict() for u in self.users],
+            'logged_user' : self.logged_in_user.to_dict() if self.has_logged_in_user else None,
+            'customers': [c.to_dict() for c in self.customers],
+            'trucks' : [t.to_dict() for t in self.trucks],
+        }
+    
+    @classmethod
+    def from_dict(cls, data, city_distances: CityDistances):
+        app_data = cls()
+        app_data.routes = [Route.from_dict(r,city_distances) for r in data.get('routes', [])]
+        app_data.packages = [Package.from_dict(p) for p in data.get('packages', [])]
+        app_data.users = [User.from_dict(u) for u in data.get('users', [])]
+        app_data.login(data['logged_user'])
+        app_data.customers = [Customer.from_dict(c) for c in data.get('customers', [])]
+        app_data._trucks = [Truck.from_dict(t) for t in data['trucks']]
+        
+        if data.get("logged_in_user"):
+            app_data.logged_in_user = User.from_dict(data["logged_in_user"])
+        return app_data
+

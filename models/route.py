@@ -23,7 +23,7 @@ class Route:
         return tuple(self._locations)
     
     @property
-    def departure_time(self):
+    def departure_time(self)->datetime:
         return self._departure_time
     
     @departure_time.setter
@@ -69,8 +69,12 @@ class Route:
 
     def __str__(self):
         info = f'Route ID {self.route_id} | '
+        
         for loc in self.locations:
-            info+= f'{loc} ({self.location_eta(loc).strftime("%Y-%m-%d %H:%M")}) -> '
+            if self.departure_time:
+                info+= f'{loc} ({self.location_eta(loc).strftime("%Y-%m-%d %H:%M")}) -> '
+            else:
+                info+= f'{loc} (ETA: N/A) -> '
 
         return info[:-4]
     
@@ -89,6 +93,7 @@ class Route:
         headline = str(self)+'\n'+f'{self.locations[0]} - {load_at_start_location} kg'
 
         next_stop =''
+        total_weight_delivered = '\n'+f'Total weight: {sum(package.weight for package in self._assigned_packages)} kg'
 
         for loc in self.locations[1:]:
 
@@ -98,7 +103,7 @@ class Route:
 
             headline += '\n'+f'{loc} - {loads_per_location.get(loc, 0)} kg'
 
-        return headline + next_stop
+        return headline + next_stop + total_weight_delivered
         
 
     def free_capacity_at_location(self, package : Package):
@@ -133,3 +138,30 @@ class Route:
     
 
 
+    def to_dict(self):
+        return {
+            'route_id' : self.route_id,
+            'locations' : self.locations,
+            'departure_time' : self.departure_time.isoformat() if self.departure_time else None,
+            'assigned_truck' : self.assigned_truck.to_dict() if self.assigned_truck else None,
+            'assigned_packages' : [package.to_dict() for package in self._assigned_packages]
+        }
+    
+    @classmethod
+    def from_dict(cls, data, city_distances):
+        route = cls(
+            data['route_id'],
+            data['locations'],
+            city_distances
+        )
+
+        departure_time = datetime.fromisoformat(data['departure_time']) if data['departure_time'] else None
+        route.departure_time = departure_time
+
+        assigned_truck = Truck.from_dict(data['assigned_truck'])
+        route.assigned_truck= assigned_truck
+
+        assigned_packages = [Package.from_dict(el) for el in data.get('assigned_packages', [])]
+        route._assigned_packages = assigned_packages
+
+        return route

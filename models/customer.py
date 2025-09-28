@@ -34,3 +34,14 @@ class Customer:
     def email(self, value: str):
         FieldValidators.validate_email(value)
         self._email = value
+
+    def to_dict(self):
+        return {
+            'first_name' : self.first_name,
+            'last_name' : self.last_name,
+            'email' : self.email
+        }
+    
+    @classmethod
+    def from_dict(cls, data):
+        return cls(data['first_name'], data['last_name'], data['email'])
