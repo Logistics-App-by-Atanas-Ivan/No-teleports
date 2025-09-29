@@ -7,10 +7,10 @@ from models.city_distances import CityDistances
 
 
 class ModelsFactory:
-    def __init__(self):
+    def __init__(self,city_distances:CityDistances):
         self._route_id = 1
         self._package_id = 1
-        self._city_distances: CityDistances = CityDistances()
+        self._city_distances: CityDistances = city_distances
 
     def create_package(self, start_location, end_location, weight, customer)->Package:
         package_id = self._package_id

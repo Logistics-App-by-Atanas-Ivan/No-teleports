@@ -156,10 +156,10 @@ class Route:
         )
 
         departure_time = datetime.fromisoformat(data['departure_time']) if data['departure_time'] else None
-        route.departure_time = departure_time
+        route._departure_time = departure_time
 
         assigned_truck = Truck.from_dict(data['assigned_truck'])
-        route.assigned_truck= assigned_truck
+        route._assigned_truck= assigned_truck
 
         assigned_packages = [Package.from_dict(el) for el in data.get('assigned_packages', [])]
         route._assigned_packages = assigned_packages

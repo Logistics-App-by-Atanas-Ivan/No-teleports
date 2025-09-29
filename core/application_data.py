@@ -6,16 +6,19 @@ from models.city_distances import CityDistances
 from models.user import User
 from models.constants.status import Status
 from models.customer import Customer
+import json
+from os import path
 
 class ApplicationData:
-    def __init__(self):
+    def __init__(self,city_distances:CityDistances):
         self._routes: list[Route] = []
         self._packages: list[Package] =[]
         self._users: list[User] = [self._create_initial_manager()] # email, first_name, last_name, password, role
         self._logged_user = None
         self._customers: list[Customer] = []
         self._trucks: list[Truck] = self._create_truck()
-        self._city_distances: CityDistances = CityDistances()
+        # self._city_distances: CityDistances = CityDistances()
+        self._city_distances: CityDistances = city_distances
 
     @staticmethod
     def _create_initial_manager():
@@ -213,15 +216,34 @@ class ApplicationData:
     
     @classmethod
     def from_dict(cls, data, city_distances: CityDistances):
-        app_data = cls()
-        app_data.routes = [Route.from_dict(r,city_distances) for r in data.get('routes', [])]
-        app_data.packages = [Package.from_dict(p) for p in data.get('packages', [])]
-        app_data.users = [User.from_dict(u) for u in data.get('users', [])]
-        app_data.login(data['logged_user'])
-        app_data.customers = [Customer.from_dict(c) for c in data.get('customers', [])]
-        app_data._trucks = [Truck.from_dict(t) for t in data['trucks']]
+        app_data = cls(city_distances)
+        app_data._routes = [Route.from_dict(r,city_distances) for r in data.get('routes', [])]
+        app_data._packages = [Package.from_dict(p) for p in data.get('packages', [])]
+        if data.get('users'):
+            app_data._users = [User.from_dict(u) for u in data['users']]
+        # app_data.login(data['logged_user'])
+        app_data._logged_user = User.from_dict(data['logged_user']) if data.get('logged_user') else None
+        app_data._customers = [Customer.from_dict(c) for c in data.get('customers', [])]
+        # app_data._trucks = [Truck.from_dict(t) for t in data['trucks']]
+        app_data._trucks = [Truck.from_dict(t) for t in data.get('trucks')] if data.get('trucks') else cls._create_truck()
         
-        if data.get("logged_in_user"):
-            app_data.logged_in_user = User.from_dict(data["logged_in_user"])
+        # if data.get("logged_in_user"):
+        #     app_data.logged_in_user = User.from_dict(data["logged_in_user"])
+
+
         return app_data
 
+
+    def save_state(self, file_path="app_state.json"):
+        with open(file_path, "w") as f:
+            json.dump(self.to_dict(), f, indent=4)
+
+    @classmethod
+    def load_state(cls, file_path, city_distances: CityDistances):
+        if not path.exists(file_path):
+            print('no path')
+            return cls()  # return empty app_data if file doesn't exist
+        print('path')
+        with open(file_path, "r") as f:
+            data = json.load(f)
+        return cls.from_dict(data,city_distances)

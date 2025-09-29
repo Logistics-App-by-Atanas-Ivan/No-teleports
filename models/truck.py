@@ -61,6 +61,6 @@ class Truck:
         )
 
         available_from = datetime.fromisoformat(data['available_from']) 
-        truck.available_from = available_from
+        truck._available_from = available_from
 
         return truck

@@ -1,5 +1,4 @@
 import unittest
-
 from core.application_data import ApplicationData
 from models.constants.user_roles import UserRole
 from models.truck import Truck

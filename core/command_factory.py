@@ -16,12 +16,13 @@ from commands.view_all_unassigned_packages import ViewAllUnassignedPackages
 from commands.find_package import FindPackage
 from commands.view_delivery_routes import ViewDeliveryRoutes
 from commands.save_app_data import SaveAppData
+from models.city_distances import CityDistances
 from commands.bulk_assign_by_id import BulkAssignById
 
 class CommandFactory:
-    def __init__(self, data):
+    def __init__(self, data, city_distances:CityDistances):
         self._app_data = data
-        self._models_factory = ModelsFactory()
+        self._models_factory = ModelsFactory(city_distances)
 
     def create(self, input_line):
         cmd, *params = input_line.split()
