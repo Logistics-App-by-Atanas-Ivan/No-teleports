@@ -28,16 +28,5 @@ class ModelsFactory:
     def create_user(self, email):
         pass
 
-    # def create_truck(self)->list[Truck]:
-    #     # id, brand, capacity, range
-    #     trucks = []
-    #     for id in range(1001,1041):
-    #         if id<1011:
-    #             trucks.append(Truck(id,'Scania',42000,8000))
-    #         elif id<1026:
-    #             trucks.append(Truck(id,'Man',37000,10000))
-    #         else:
-    #             trucks.append(Truck(id,'Actros',26000,13000))
 
-    #     return trucks
 

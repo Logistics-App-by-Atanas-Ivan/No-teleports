@@ -82,6 +82,7 @@ class Package:
             'start_location' : self.start_location,
             'end_location' : self.end_location,
             'customer' : self._customer.to_dict(),
+            'weight' : self.weight,
             'package_eta' : self.package_eta.isoformat() if self.package_eta else None,
         }
     
@@ -95,8 +96,9 @@ class Package:
             data['weight'],
             customer
         )
-        eta = datetime.fromisoformat(data['package_eta']) if data['package_eta'] else None
-        package.package_eta = eta
+        if data['package_eta']:
+            package._package_eta = datetime.fromisoformat(data['package_eta'])
+
         return package
     
         

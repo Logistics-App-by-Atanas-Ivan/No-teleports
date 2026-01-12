@@ -32,7 +32,7 @@ ViewDeliveryRoutes
 Logout
 Login manager1@telerikacademy.com 123456
 ViewDeliveryRoutes
-SaveAppData
+
 
 
 

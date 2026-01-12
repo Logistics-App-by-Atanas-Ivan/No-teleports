@@ -203,7 +203,7 @@ class ApplicationData:
                     suitable_truck = truck
         return suitable_truck
     
-
+    #Saving & Loading State
     def to_dict(self):
         return {
             'routes': [r.to_dict() for r in self.routes],
@@ -215,7 +215,7 @@ class ApplicationData:
         }
     
     @classmethod
-    def from_dict(cls, data, city_distances: CityDistances):
+    def from_dict(cls, data:dict, city_distances: CityDistances):
         app_data = cls(city_distances)
         app_data._routes = [Route.from_dict(r,city_distances) for r in data.get('routes', [])]
         app_data._packages = [Package.from_dict(p) for p in data.get('packages', [])]
@@ -242,8 +242,8 @@ class ApplicationData:
     def load_state(cls, file_path, city_distances: CityDistances):
         if not path.exists(file_path):
             print('no path')
-            return cls()  # return empty app_data if file doesn't exist
+            return cls(city_distances)  # return empty app_data if file doesn't exist
         print('path')
         with open(file_path, "r") as f:
-            data = json.load(f)
+            data: dict = json.load(f)
         return cls.from_dict(data,city_distances)

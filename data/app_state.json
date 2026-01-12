@@ -7,18 +7,116 @@
                 "Sydney",
                 "Melbourne"
             ],
-            "departure_time": "2025-09-30T06:00:00",
+            "departure_time": "2026-01-13T06:00:00",
             "assigned_truck": {
                 "truck_id": 1001,
                 "truck_brand": "Scania",
                 "truck_capacity": 42000,
                 "truck_range": 8000,
-                "available_from": "2025-10-01T02:31:43.448276"
+                "available_from": "2026-01-14T02:31:43.448276"
             },
-            "assigned_packages": []
+            "assigned_packages": [
+                {
+                    "package_id": 1,
+                    "start_location": "Brisbane",
+                    "end_location": "Sydney",
+                    "customer": {
+                        "first_name": "John",
+                        "last_name": "Doe",
+                        "email": "john_doe@gmail.com"
+                    },
+                    "weight": 500.0,
+                    "package_eta": "2026-01-13T16:26:53.793103"
+                },
+                {
+                    "package_id": 2,
+                    "start_location": "Brisbane",
+                    "end_location": "Sydney",
+                    "customer": {
+                        "first_name": "John",
+                        "last_name": "Doe",
+                        "email": "john_doe@gmail.com"
+                    },
+                    "weight": 500.0,
+                    "package_eta": "2026-01-13T16:26:53.793103"
+                },
+                {
+                    "package_id": 3,
+                    "start_location": "Brisbane",
+                    "end_location": "Melbourne",
+                    "customer": {
+                        "first_name": "Petar",
+                        "last_name": "Petrov",
+                        "email": "p_petrov@gmail.com"
+                    },
+                    "weight": 5000.0,
+                    "package_eta": "2026-01-14T02:31:43.448276"
+                }
+            ]
         }
     ],
-    "packages": [],
+    "packages": [
+        {
+            "package_id": 1,
+            "start_location": "Brisbane",
+            "end_location": "Sydney",
+            "customer": {
+                "first_name": "John",
+                "last_name": "Doe",
+                "email": "john_doe@gmail.com"
+            },
+            "weight": 500.0,
+            "package_eta": "2026-01-13T16:26:53.793103"
+        },
+        {
+            "package_id": 2,
+            "start_location": "Brisbane",
+            "end_location": "Sydney",
+            "customer": {
+                "first_name": "John",
+                "last_name": "Doe",
+                "email": "john_doe@gmail.com"
+            },
+            "weight": 500.0,
+            "package_eta": "2026-01-13T16:26:53.793103"
+        },
+        {
+            "package_id": 3,
+            "start_location": "Brisbane",
+            "end_location": "Melbourne",
+            "customer": {
+                "first_name": "Petar",
+                "last_name": "Petrov",
+                "email": "p_petrov@gmail.com"
+            },
+            "weight": 5000.0,
+            "package_eta": "2026-01-14T02:31:43.448276"
+        },
+        {
+            "package_id": 4,
+            "start_location": "Sydney",
+            "end_location": "Melbourne",
+            "customer": {
+                "first_name": "John",
+                "last_name": "Doe",
+                "email": "john_doe@gmail.com"
+            },
+            "weight": 45.0,
+            "package_eta": null
+        },
+        {
+            "package_id": 5,
+            "start_location": "Brisbane",
+            "end_location": "Melbourne",
+            "customer": {
+                "first_name": "Petar",
+                "last_name": "Petrov",
+                "email": "p_petrov@gmail.com"
+            },
+            "weight": 10000.0,
+            "package_eta": null
+        }
+    ],
     "users": [
         {
             "email": "manager1@telerikacademy.com",
@@ -35,294 +133,299 @@
             "user_role": "Regular"
         }
     ],
-    "logged_user": {
-        "email": "manager1@telerikacademy.com",
-        "first_name": "Pesho",
-        "last_name": "Peshov",
-        "password": "123456",
-        "user_role": "Manager"
-    },
-    "customers": [],
+    "logged_user": null,
+    "customers": [
+        {
+            "first_name": "John",
+            "last_name": "Doe",
+            "email": "john_doe@gmail.com"
+        },
+        {
+            "first_name": "Petar",
+            "last_name": "Petrov",
+            "email": "p_petrov@gmail.com"
+        }
+    ],
     "trucks": [
         {
             "truck_id": 1001,
             "truck_brand": "Scania",
             "truck_capacity": 42000,
             "truck_range": 8000,
-            "available_from": "2025-10-01T02:31:43.448276"
+            "available_from": "2026-01-14T02:31:43.448276"
         },
         {
             "truck_id": 1002,
             "truck_brand": "Scania",
             "truck_capacity": 42000,
             "truck_range": 8000,
-            "available_from": "2025-09-29T11:31:28.668205"
+            "available_from": "2026-01-12T23:05:20.126845"
         },
         {
             "truck_id": 1003,
             "truck_brand": "Scania",
             "truck_capacity": 42000,
             "truck_range": 8000,
-            "available_from": "2025-09-29T11:31:28.668205"
+            "available_from": "2026-01-12T23:05:20.126846"
         },
         {
             "truck_id": 1004,
             "truck_brand": "Scania",
             "truck_capacity": 42000,
             "truck_range": 8000,
-            "available_from": "2025-09-29T11:31:28.668206"
+            "available_from": "2026-01-12T23:05:20.126847"
         },
         {
             "truck_id": 1005,
             "truck_brand": "Scania",
             "truck_capacity": 42000,
             "truck_range": 8000,
-            "available_from": "2025-09-29T11:31:28.668206"
+            "available_from": "2026-01-12T23:05:20.126848"
         },
         {
             "truck_id": 1006,
             "truck_brand": "Scania",
             "truck_capacity": 42000,
             "truck_range": 8000,
-            "available_from": "2025-09-29T11:31:28.668206"
+            "available_from": "2026-01-12T23:05:20.126848"
         },
         {
             "truck_id": 1007,
             "truck_brand": "Scania",
             "truck_capacity": 42000,
             "truck_range": 8000,
-            "available_from": "2025-09-29T11:31:28.668207"
+            "available_from": "2026-01-12T23:05:20.126849"
         },
         {
             "truck_id": 1008,
             "truck_brand": "Scania",
             "truck_capacity": 42000,
             "truck_range": 8000,
-            "available_from": "2025-09-29T11:31:28.668207"
+            "available_from": "2026-01-12T23:05:20.126849"
         },
         {
             "truck_id": 1009,
             "truck_brand": "Scania",
             "truck_capacity": 42000,
             "truck_range": 8000,
-            "available_from": "2025-09-29T11:31:28.668208"
+            "available_from": "2026-01-12T23:05:20.126850"
         },
         {
             "truck_id": 1010,
             "truck_brand": "Scania",
             "truck_capacity": 42000,
             "truck_range": 8000,
-            "available_from": "2025-09-29T11:31:28.668208"
+            "available_from": "2026-01-12T23:05:20.126850"
         },
         {
             "truck_id": 1011,
             "truck_brand": "Man",
             "truck_capacity": 37000,
             "truck_range": 10000,
-            "available_from": "2025-09-29T11:31:28.668209"
+            "available_from": "2026-01-12T23:05:20.126851"
         },
         {
             "truck_id": 1012,
             "truck_brand": "Man",
             "truck_capacity": 37000,
             "truck_range": 10000,
-            "available_from": "2025-09-29T11:31:28.668209"
+            "available_from": "2026-01-12T23:05:20.126852"
         },
         {
             "truck_id": 1013,
             "truck_brand": "Man",
             "truck_capacity": 37000,
             "truck_range": 10000,
-            "available_from": "2025-09-29T11:31:28.668210"
+            "available_from": "2026-01-12T23:05:20.126852"
         },
         {
             "truck_id": 1014,
             "truck_brand": "Man",
             "truck_capacity": 37000,
             "truck_range": 10000,
-            "available_from": "2025-09-29T11:31:28.668210"
+            "available_from": "2026-01-12T23:05:20.126853"
         },
         {
             "truck_id": 1015,
             "truck_brand": "Man",
             "truck_capacity": 37000,
             "truck_range": 10000,
-            "available_from": "2025-09-29T11:31:28.668211"
+            "available_from": "2026-01-12T23:05:20.126853"
         },
         {
             "truck_id": 1016,
             "truck_brand": "Man",
             "truck_capacity": 37000,
             "truck_range": 10000,
-            "available_from": "2025-09-29T11:31:28.668211"
+            "available_from": "2026-01-12T23:05:20.126854"
         },
         {
             "truck_id": 1017,
             "truck_brand": "Man",
             "truck_capacity": 37000,
             "truck_range": 10000,
-            "available_from": "2025-09-29T11:31:28.668211"
+            "available_from": "2026-01-12T23:05:20.126854"
         },
         {
             "truck_id": 1018,
             "truck_brand": "Man",
             "truck_capacity": 37000,
             "truck_range": 10000,
-            "available_from": "2025-09-29T11:31:28.668212"
+            "available_from": "2026-01-12T23:05:20.126855"
         },
         {
             "truck_id": 1019,
             "truck_brand": "Man",
             "truck_capacity": 37000,
             "truck_range": 10000,
-            "available_from": "2025-09-29T11:31:28.668212"
+            "available_from": "2026-01-12T23:05:20.126855"
         },
         {
             "truck_id": 1020,
             "truck_brand": "Man",
             "truck_capacity": 37000,
             "truck_range": 10000,
-            "available_from": "2025-09-29T11:31:28.668213"
+            "available_from": "2026-01-12T23:05:20.126855"
         },
         {
             "truck_id": 1021,
             "truck_brand": "Man",
             "truck_capacity": 37000,
             "truck_range": 10000,
-            "available_from": "2025-09-29T11:31:28.668213"
+            "available_from": "2026-01-12T23:05:20.126856"
         },
         {
             "truck_id": 1022,
             "truck_brand": "Man",
             "truck_capacity": 37000,
             "truck_range": 10000,
-            "available_from": "2025-09-29T11:31:28.668214"
+            "available_from": "2026-01-12T23:05:20.126856"
         },
         {
             "truck_id": 1023,
             "truck_brand": "Man",
             "truck_capacity": 37000,
             "truck_range": 10000,
-            "available_from": "2025-09-29T11:31:28.668214"
+            "available_from": "2026-01-12T23:05:20.126857"
         },
         {
             "truck_id": 1024,
             "truck_brand": "Man",
             "truck_capacity": 37000,
             "truck_range": 10000,
-            "available_from": "2025-09-29T11:31:28.668214"
+            "available_from": "2026-01-12T23:05:20.126857"
         },
         {
             "truck_id": 1025,
             "truck_brand": "Man",
             "truck_capacity": 37000,
             "truck_range": 10000,
-            "available_from": "2025-09-29T11:31:28.668215"
+            "available_from": "2026-01-12T23:05:20.126858"
         },
         {
             "truck_id": 1026,
             "truck_brand": "Actros",
             "truck_capacity": 26000,
             "truck_range": 13000,
-            "available_from": "2025-09-29T11:31:28.668215"
+            "available_from": "2026-01-12T23:05:20.126858"
         },
         {
             "truck_id": 1027,
             "truck_brand": "Actros",
             "truck_capacity": 26000,
             "truck_range": 13000,
-            "available_from": "2025-09-29T11:31:28.668216"
+            "available_from": "2026-01-12T23:05:20.126859"
         },
         {
             "truck_id": 1028,
             "truck_brand": "Actros",
             "truck_capacity": 26000,
             "truck_range": 13000,
-            "available_from": "2025-09-29T11:31:28.668216"
+            "available_from": "2026-01-12T23:05:20.126859"
         },
         {
             "truck_id": 1029,
             "truck_brand": "Actros",
             "truck_capacity": 26000,
             "truck_range": 13000,
-            "available_from": "2025-09-29T11:31:28.668217"
+            "available_from": "2026-01-12T23:05:20.126860"
         },
         {
             "truck_id": 1030,
             "truck_brand": "Actros",
             "truck_capacity": 26000,
             "truck_range": 13000,
-            "available_from": "2025-09-29T11:31:28.668217"
+            "available_from": "2026-01-12T23:05:20.126860"
         },
         {
             "truck_id": 1031,
             "truck_brand": "Actros",
             "truck_capacity": 26000,
             "truck_range": 13000,
-            "available_from": "2025-09-29T11:31:28.668217"
+            "available_from": "2026-01-12T23:05:20.126861"
         },
         {
             "truck_id": 1032,
             "truck_brand": "Actros",
             "truck_capacity": 26000,
             "truck_range": 13000,
-            "available_from": "2025-09-29T11:31:28.668218"
+            "available_from": "2026-01-12T23:05:20.126861"
         },
         {
             "truck_id": 1033,
             "truck_brand": "Actros",
             "truck_capacity": 26000,
             "truck_range": 13000,
-            "available_from": "2025-09-29T11:31:28.668218"
+            "available_from": "2026-01-12T23:05:20.126862"
         },
         {
             "truck_id": 1034,
             "truck_brand": "Actros",
             "truck_capacity": 26000,
             "truck_range": 13000,
-            "available_from": "2025-09-29T11:31:28.668219"
+            "available_from": "2026-01-12T23:05:20.126862"
         },
         {
             "truck_id": 1035,
             "truck_brand": "Actros",
             "truck_capacity": 26000,
             "truck_range": 13000,
-            "available_from": "2025-09-29T11:31:28.668219"
+            "available_from": "2026-01-12T23:05:20.126863"
         },
         {
             "truck_id": 1036,
             "truck_brand": "Actros",
             "truck_capacity": 26000,
             "truck_range": 13000,
-            "available_from": "2025-09-29T11:31:28.668220"
+            "available_from": "2026-01-12T23:05:20.126863"
         },
         {
             "truck_id": 1037,
             "truck_brand": "Actros",
             "truck_capacity": 26000,
             "truck_range": 13000,
-            "available_from": "2025-09-29T11:31:28.668220"
+            "available_from": "2026-01-12T23:05:20.126863"
         },
         {
             "truck_id": 1038,
             "truck_brand": "Actros",
             "truck_capacity": 26000,
             "truck_range": 13000,
-            "available_from": "2025-09-29T11:31:28.668221"
+            "available_from": "2026-01-12T23:05:20.126864"
         },
         {
             "truck_id": 1039,
             "truck_brand": "Actros",
             "truck_capacity": 26000,
             "truck_range": 13000,
-            "available_from": "2025-09-29T11:31:28.668221"
+            "available_from": "2026-01-12T23:05:20.126866"
         },
         {
             "truck_id": 1040,
             "truck_brand": "Actros",
             "truck_capacity": 26000,
             "truck_range": 13000,
-            "available_from": "2025-09-29T11:31:28.668222"
+            "available_from": "2026-01-12T23:05:20.126866"
         }
     ]
 }
