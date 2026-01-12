@@ -14,10 +14,11 @@ class CreateCustomer(BaseCommand):
     def execute(self):
         super().execute()
         first_name, last_name, email = self.params #validations
+        customer = None
         try:
-            self.app_data.find_customer(email)
+            customer = self.app_data.find_customer(email)
         except ValueError:
-            customer = None
+            pass
         if customer:
             raise ValueError(f'Customer with email {email} already exists!')
         customer = self._models_factory.create_customer(first_name, last_name, email)
