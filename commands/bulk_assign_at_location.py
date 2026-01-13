@@ -4,8 +4,6 @@ from models.package import Package
 from models.route import Route
 from datetime import datetime
 
-#route_id location
-
 class BulkAssignAtLocation(BaseCommand):
 
     def __init__(self, params, app_data: ApplicationData):

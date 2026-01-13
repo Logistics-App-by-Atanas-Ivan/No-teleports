@@ -89,10 +89,7 @@ class CommandFactory:
             return ViewDeliveryRoutes(params, self._app_data)
         
         if cmd.lower() == 'saveappdata':
-            return SaveAppData(params, self._app_data)
-        
-        # if cmd.lower() == "bulkassignbyid":
-        #     return BulkAssignById(params, self._app_data)                     
+            return SaveAppData(params, self._app_data)                    
 
         raise ValueError(f'Invalid command name: {cmd}!')
     

@@ -3,8 +3,6 @@ from commands.base.base import BaseCommand
 from models.package import Package
 from models.route import Route
 
-#addpackage package_id route_id
-
 class AddPackage(BaseCommand):
 
     def __init__(self, params, app_data: ApplicationData):

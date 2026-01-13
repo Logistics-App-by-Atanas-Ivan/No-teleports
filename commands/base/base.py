@@ -17,7 +17,6 @@ class BaseCommand(ValidationHelpers):
         return self._app_data
 
     def execute(self):
-        # override in derived classes
         if self._requires_login() and not self._app_data.has_logged_in_user:
             raise ValueError('You are not logged in! Please login first!')
         

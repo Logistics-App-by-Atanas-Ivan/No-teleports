@@ -2,8 +2,6 @@ from core.application_data import ApplicationData
 from core.models_factory import ModelsFactory
 from commands.base.base import BaseCommand
 
-#createcustomer first_name last_name email
-
 class CreateCustomer(BaseCommand):
 
     def __init__(self, params, app_data: ApplicationData, models_factory: ModelsFactory):

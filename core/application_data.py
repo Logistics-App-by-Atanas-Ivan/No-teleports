@@ -17,7 +17,6 @@ class ApplicationData:
         self._logged_user = None
         self._customers: list[Customer] = []
         self._trucks: list[Truck] = self._create_truck()
-        # self._city_distances: CityDistances = CityDistances()
         self._city_distances: CityDistances = city_distances
 
     @staticmethod
@@ -221,15 +220,9 @@ class ApplicationData:
         app_data._packages = [Package.from_dict(p) for p in data.get('packages', [])]
         if data.get('users'):
             app_data._users = [User.from_dict(u) for u in data['users']]
-        # app_data.login(data['logged_user'])
         app_data._logged_user = User.from_dict(data['logged_user']) if data.get('logged_user') else None
         app_data._customers = [Customer.from_dict(c) for c in data.get('customers', [])]
-        # app_data._trucks = [Truck.from_dict(t) for t in data['trucks']]
         app_data._trucks = [Truck.from_dict(t) for t in data.get('trucks')] if data.get('trucks') else cls._create_truck()
-        
-        # if data.get("logged_in_user"):
-        #     app_data.logged_in_user = User.from_dict(data["logged_in_user"])
-
 
         return app_data
 

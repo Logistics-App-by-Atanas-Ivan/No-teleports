@@ -28,7 +28,5 @@ class Engine:
                 self._app_data.save_state(self._file_path) 
                 
             except ValueError as err:
-                # output.append(err.args[0])
                 print(err.args[0])
 
-        # print('\n'.join(output))

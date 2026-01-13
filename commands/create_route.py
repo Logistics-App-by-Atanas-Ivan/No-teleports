@@ -7,8 +7,7 @@ from commands.base.base import BaseCommand
 class CreateRoute(BaseCommand):
 
     def __init__(self, params, app_data: ApplicationData, models_factory: ModelsFactory):
-        # self.validate_params_count(params, 1)
-        # params= [el for el in params]
+
         for i in range(len(params)-1):
             if params[i].title()=='Alice' and params[i+1].title()=='Springs':
                 params[i]='Alice Springs'

@@ -1,8 +1,6 @@
 from core.application_data import ApplicationData
 from commands.base.base import BaseCommand
 
-#assigntruck truck_id route_id
-
 class AssignTruck(BaseCommand):
 
     def __init__(self, params, app_data: ApplicationData):
@@ -25,8 +23,6 @@ class AssignTruck(BaseCommand):
             raise ValueError(f'Truck with ID {truck_id} is no longer available! Please assign a different truck!')
         
         route.assigned_truck = truck
-
-        # self.app_data.assign_truck(route, truck)
 
         return f'Truck with ID {truck_id} was assigned to Route with ID {route_id}!'
     
