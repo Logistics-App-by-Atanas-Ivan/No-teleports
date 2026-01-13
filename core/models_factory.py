@@ -25,8 +25,5 @@ class ModelsFactory:
     def create_customer(self, first_name, last_name, email)->Customer:
         return Customer(first_name, last_name, email)
 
-    def create_user(self, email):
-        pass
-
 
 
