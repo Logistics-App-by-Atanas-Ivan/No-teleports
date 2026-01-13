@@ -18,12 +18,22 @@ from commands.view_delivery_routes import ViewDeliveryRoutes
 from commands.save_app_data import SaveAppData
 from models.city_distances import CityDistances
 from commands.bulk_assign_by_id import BulkAssignById
+from core.application_data import ApplicationData
 
 class CommandFactory:
-    def __init__(self, data, city_distances:CityDistances):
+    def __init__(self, data: ApplicationData, city_distances:CityDistances):
         self._app_data = data
-        self._models_factory = ModelsFactory(city_distances)
+        self._models_factory = self._models_factory_dynamic_input(city_distances) #ModelsFactory(city_distances)
 
+    def _models_factory_dynamic_input(self, city_distances:CityDistances):
+      
+        last_package_id = self._app_data.packages[-1].package_id if self._app_data.packages else None
+        last_route_id = self._app_data.routes[-1].route_id if self._app_data.routes else None 
+
+        return ModelsFactory(city_distances, route_id=last_route_id, package_id=last_package_id  ) 
+
+        
+    
     def create(self, input_line):
         cmd, *params = input_line.split()
 

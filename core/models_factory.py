@@ -7,9 +7,9 @@ from models.city_distances import CityDistances
 
 
 class ModelsFactory:
-    def __init__(self,city_distances:CityDistances):
-        self._route_id = 1
-        self._package_id = 1
+    def __init__(self,city_distances:CityDistances, route_id = None, package_id=None):
+        self._route_id = (route_id+1) if route_id else 1
+        self._package_id = (package_id+1) if package_id else 1 
         self._city_distances: CityDistances = city_distances
 
     def create_package(self, start_location, end_location, weight, customer)->Package:

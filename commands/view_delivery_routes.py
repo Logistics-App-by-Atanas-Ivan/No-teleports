@@ -18,6 +18,8 @@ class ViewDeliveryRoutes(BaseCommand):
             raise ValueError(f'Current user role {logged_in_user.user_role} - only managers can view all active delivery routes')
 
         active_routes = self.app_data.find_active_routes()
+        if not active_routes:
+            raise ValueError('There are no active routes.')
 
         lines = []
         for route in active_routes:
