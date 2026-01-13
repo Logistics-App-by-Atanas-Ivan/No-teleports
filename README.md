@@ -2,15 +2,17 @@
 
 ## Table of Contents
 
-* [Project Overview](#-project-overview)
-* [Key Features](#-key-features)
-* [Architectural Design](#-architectural-design)
-* [Project Structure](#-project-structure)
-* [Business Logic Highlights](#-business-logic-highlights)
-* [Testing](#-testing)
-* [Technologies Used](#-technologies-used)
-* [Learning Outcomes](#-learning-outcomes)
-* [Future Improvements](#-future-improvements)
+* [Project Overview](#project-overview)
+* [Key Features](#key-features)
+* [Architectural Design](#architectural-design)
+* [Project Structure](#project-structure)
+* [Business Logic Highlights](#business-logic-highlights)
+* [Testing](#testing)
+* [How to Use the Application](#how-to-use-the-application)
+* [Full Example Workflow](#full-example-workflow)
+* [Technologies Used](#technologies-used)
+* [Learning Outcomes](#learning-outcomes)
+* [Future Improvements](#future-improvements)
 
 ---
 
@@ -78,34 +80,28 @@ The application is structured around **domain-driven design** and **Command Patt
 
 ## Project Structure
 
-```
-logistics_app/
-│
-├── core/
-│   ├── engine.py
-│   ├── application_data.py
-│
-├── commands/
-│   ├── create_package.py
-│   ├── create_route.py
-│   ├── assign_package.py
-│   └── ...
-│
-├── models/
-│   ├── package.py
-│   ├── route.py
-│   ├── truck.py
-│   └── customer.py
-│
-├── factories/
-│   └── models_factory.py
-│
-├── utils/
-│   ├── validation_helpers.py
-│   └── city_distances.py
-│
-└── main.py
-```
+- **core/**
+  - Application startup and central state management (`engine`, `application_data`)
+
+- **commands/**
+  - Command handlers implementing the CLI operations
+  - Each command encapsulates validation and execution logic
+
+- **models/**
+  - Domain entities such as `Package`, `Route`, `Truck`, and `Customer`
+  - Shared constants (statuses, roles) grouped under `constants/`
+
+- **factories/**
+  - Responsible for creating domain models and enforcing invariants
+
+- **utils/**
+  - Helper modules for validation and distance calculations
+
+- **tests/**
+  - Unit tests covering business logic, commands, and core data structures
+
+- **main.py**
+  - Application entry point
 
 ---
 
@@ -145,17 +141,29 @@ The project includes **unit tests** covering core business logic, domain models,
   * `Customer` – input validation and constraints
   * `Package` – status transitions, ETA logic, and string representation
 
-### Test Structure
+## Test Structure
 
-```
-tests/
-│
-├── application_data_test.py
-├── create_package_test.py
-├── customer_test.py
-├── package_test.py
-└── test_data.py
-```
+- **tests/**
+  - Entry-level test configuration and shared test data
+  - Common fixtures, constants, and reusable helpers used across test cases
+
+- **application_data_test.py**
+  - Tests for application state initialization and core data operations
+  - Validation of package, customer, route, and truck management logic
+
+- **create_package_test.py**
+  - Unit tests for the `CreatePackage` command
+  - Covers input validation, error handling, and successful execution paths
+
+- **customer_test.py**
+  - Tests for customer model validation and constraints
+  - Ensures correct behavior for edge cases and invalid input
+
+- **package_test.py**
+  - Tests for package lifecycle, status transitions, and ETA calculations
+
+- **test_data.py**
+  - Centralized mock data and constants shared between tests
 
 ### Testing Techniques Used
 
